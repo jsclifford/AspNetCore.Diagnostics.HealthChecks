@@ -1,7 +1,22 @@
-namespace HealthChecks.Publisher.ApplicationInsights
+namespace HealthChecks.Publisher.ApplicationInsightsAvailability
 {
     public class ApplicationInsightsAvailibilityPublisherOptions
     {
+        // <summary>
+        /// AppInsights Connection String for telemetry client
+        /// </summary>
+        public string? ConnectionString { get; set; }
+
+        // <summary>
+        /// AppInsights Instrumentation Key for telemetry client
+        /// </summary>
+        public string? InstrumentationKey { get; set; }
+
+        // <summary>
+        /// Save Detailed Report for every health check instead of aggregate of all health checks
+        /// </summary>
+        public bool SaveDetailedReport { get; set; } = false;
+
         /// <summary>
         /// Availibility telemetry name.
         /// </summary>

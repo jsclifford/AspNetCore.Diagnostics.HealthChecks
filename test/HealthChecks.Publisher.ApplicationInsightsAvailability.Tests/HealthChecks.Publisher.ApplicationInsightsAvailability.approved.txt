@@ -1,0 +1,19 @@
+namespace HealthChecks.Publisher.ApplicationInsightsAvailability
+{
+    public class ApplicationInsightsAvailibilityPublisherOptions
+    {
+        public string? ConnectionString { get; set; }
+        public string? InstrumentationKey { get; set; }
+        public bool SaveDetailedReport { get; set; } = false;
+        public string TestName { get; set; } = "AspNetCoreHealthCheck";
+        public string TestRunLocation { get; set; } = "Application";
+        public bool TreatDegradedAsSuccess { get; set; } = false;
+    }
+}
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static class ApplicationInsightsAvailabilityHealthCheckBuilderExtensions
+    {
+        public static Microsoft.Extensions.DependencyInjection.IHealthChecksBuilder AddApplicationInsightsAvailabilityPublisher(this Microsoft.Extensions.DependencyInjection.IHealthChecksBuilder builder, System.Action<HealthChecks.Publisher.ApplicationInsightsAvailability.ApplicationInsightsAvailibilityPublisherOptions>? setup = null ) { }
+    }
+}

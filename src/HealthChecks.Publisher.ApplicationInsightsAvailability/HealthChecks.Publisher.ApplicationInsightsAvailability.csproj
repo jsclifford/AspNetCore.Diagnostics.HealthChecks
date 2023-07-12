@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageTags>$(PackageTags);Publisher;Application Insights Availability</PackageTags>
+    <Description>HealthChecks.Publisher.ApplicationInsightsAvailability is the health check
+      publisher for Application Insights Availability.</Description>
+    <VersionPrefix>$(HealthCheckPublisherApplicationInsightsAvailability)</VersionPrefix>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="7.0.3" />
+  </ItemGroup>
+
+</Project>

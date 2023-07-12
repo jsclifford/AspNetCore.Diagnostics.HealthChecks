@@ -4,29 +4,20 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 
-namespace HealthChecks.Publisher.ApplicationInsights
+namespace HealthChecks.Publisher.ApplicationInsightsAvailability
 {
     public class ApplicationInsightsAvailabilityPublisher : IHealthCheckPublisher
     {
         private static TelemetryClient? _client;
         private static readonly object _syncRoot = new object();
         private readonly TelemetryConfiguration? _telemetryConfiguration;
-        private readonly string? _connectionString;
-        private readonly string? _instrumentationKey;
-        private readonly bool _saveDetailedReport;
         private readonly IOptions<ApplicationInsightsAvailibilityPublisherOptions> _options;
 
         public ApplicationInsightsAvailabilityPublisher(
             IOptions<TelemetryConfiguration>? telemetryConfiguration,
-            IOptions<ApplicationInsightsAvailibilityPublisherOptions> options,
-            string? connectionString = default,
-            string? instrumentationKey = default,
-            bool saveDetailedReport = false)
+            IOptions<ApplicationInsightsAvailibilityPublisherOptions> options)
         {
             _telemetryConfiguration = telemetryConfiguration?.Value;
-            _connectionString = connectionString;
-            _instrumentationKey = instrumentationKey;
-            _saveDetailedReport = saveDetailedReport;
             _options = options;
         }
 
@@ -141,12 +132,11 @@ namespace HealthChecks.Publisher.ApplicationInsights
                     {
                         // Create TelemetryConfiguration
                         // Hierachy: _connectionString > _instrumentationKey > _telemetryConfiguration
-                        var configuration = string.IsNullOrWhiteSpace(_connectionString)
-                            ? string.IsNullOrWhiteSpace(_instrumentationKey)
+                        var configuration = string.IsNullOrWhiteSpace(_options.Value.ConnectionString)
+                            ? string.IsNullOrWhiteSpace(_options.Value.InstrumentationKey)
                                 ? _telemetryConfiguration
-                                : new TelemetryConfiguration(_instrumentationKey)
-                            : new TelemetryConfiguration { ConnectionString = _connectionString };
-
+                                : new TelemetryConfiguration(_options.Value.InstrumentationKey)
+                            : new TelemetryConfiguration { ConnectionString = _options.Value.ConnectionString };
 
                         _client = new TelemetryClient(configuration);
                     }
